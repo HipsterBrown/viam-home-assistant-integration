@@ -3,9 +3,10 @@
   "name": "Viam",
   "codeowners": ["@hipsterbrown"],
   "config_flow": true,
-  "documentation": "https://www.home-assistant.io/integrations/viam",
+  "documentation": "https://github.com/hipsterbrown/viam-home-assistant-integration",
   "integration_type": "hub",
   "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/HipsterBrown/viam-home-assistant-integration/issues",
   "requirements": ["viam-sdk==0.25.2"],
   "version": "0.1.0"
 }
