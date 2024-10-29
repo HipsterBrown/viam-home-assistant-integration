@@ -1,4 +1,5 @@
 """Common fixtures for the viam tests."""
+
 import asyncio
 from collections.abc import Generator
 from dataclasses import dataclass

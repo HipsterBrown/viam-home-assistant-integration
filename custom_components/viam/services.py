@@ -1,4 +1,5 @@
 """Services for Viam integration."""
+
 from __future__ import annotations
 
 import base64

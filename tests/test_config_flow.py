@@ -1,4 +1,5 @@
 """Test the viam config flow."""
+
 from collections.abc import Generator
 from unittest.mock import AsyncMock
 from unittest.mock import MagicMock

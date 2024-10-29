@@ -1,4 +1,5 @@
 """Manage Viam client connection."""
+
 from typing import Any
 
 from homeassistant.config_entries import ConfigEntry

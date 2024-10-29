@@ -1,4 +1,5 @@
 """The viam integration."""
+
 from __future__ import annotations
 
 from homeassistant.const import CONF_ADDRESS
