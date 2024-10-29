@@ -1,26 +1,23 @@
 """Manage Viam client connection."""
-
 from typing import Any
-
-from viam.app.app_client import RobotPart
-from viam.app.viam_client import ViamClient
-from viam.robot.client import RobotClient
-from viam.rpc.dial import Credentials, DialOptions
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_ADDRESS
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ServiceValidationError
 
-from .const import (
-    CONF_API_ID,
-    CONF_CREDENTIAL_TYPE,
-    CONF_ROBOT_ID,
-    CONF_SECRET,
-    CRED_TYPE_API_KEY,
-    CRED_TYPE_LOCATION_SECRET,
-    DOMAIN,
-)
+from .const import CONF_API_ID
+from .const import CONF_CREDENTIAL_TYPE
+from .const import CONF_ROBOT_ID
+from .const import CONF_SECRET
+from .const import CRED_TYPE_API_KEY
+from .const import CRED_TYPE_LOCATION_SECRET
+from .const import DOMAIN
+from viam.app.app_client import RobotPart
+from viam.app.viam_client import ViamClient
+from viam.robot.client import RobotClient
+from viam.rpc.dial import Credentials
+from viam.rpc.dial import DialOptions
 
 type ViamConfigEntry = ConfigEntry[ViamManager]
 

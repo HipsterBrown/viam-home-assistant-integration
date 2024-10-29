@@ -1,32 +1,31 @@
 """Services for Viam integration."""
-
 from __future__ import annotations
 
 import base64
 from datetime import datetime
 from functools import partial
-from typing import Any, cast
+from typing import Any
+from typing import cast
 
-from PIL import Image
-from viam.app.app_client import RobotPart
-from viam.media.video import CameraMimeType, ViamImage
-from viam.services.vision import VisionClient
 import voluptuous as vol
-
 from homeassistant.components import camera
 from homeassistant.config_entries import ConfigEntryState
-from homeassistant.core import (
-    HomeAssistant,
-    ServiceCall,
-    ServiceResponse,
-    SupportsResponse,
-    callback,
-)
+from homeassistant.core import callback
+from homeassistant.core import HomeAssistant
+from homeassistant.core import ServiceCall
+from homeassistant.core import ServiceResponse
+from homeassistant.core import SupportsResponse
 from homeassistant.exceptions import ServiceValidationError
 from homeassistant.helpers import selector
+from PIL import Image
 
 from .const import DOMAIN
-from .manager import ViamConfigEntry, ViamManager
+from .manager import ViamConfigEntry
+from .manager import ViamManager
+from viam.app.app_client import RobotPart
+from viam.media.video import CameraMimeType
+from viam.media.video import ViamImage
+from viam.services.vision import VisionClient
 
 ATTR_CONFIG_ENTRY = "config_entry"
 

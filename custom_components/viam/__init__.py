@@ -1,24 +1,23 @@
 """The viam integration."""
-
 from __future__ import annotations
 
-from viam.app.viam_client import ViamClient
-from viam.rpc.dial import Credentials, DialOptions
-
-from homeassistant.const import CONF_ADDRESS, CONF_API_KEY
+from homeassistant.const import CONF_ADDRESS
+from homeassistant.const import CONF_API_KEY
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.typing import ConfigType
 
-from .const import (
-    CONF_API_ID,
-    CONF_CREDENTIAL_TYPE,
-    CONF_SECRET,
-    CRED_TYPE_API_KEY,
-    DOMAIN,
-)
-from .manager import ViamConfigEntry, ViamManager
+from .const import CONF_API_ID
+from .const import CONF_CREDENTIAL_TYPE
+from .const import CONF_SECRET
+from .const import CRED_TYPE_API_KEY
+from .const import DOMAIN
+from .manager import ViamConfigEntry
+from .manager import ViamManager
 from .services import async_setup_services
+from viam.app.viam_client import ViamClient
+from viam.rpc.dial import Credentials
+from viam.rpc.dial import DialOptions
 
 CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 

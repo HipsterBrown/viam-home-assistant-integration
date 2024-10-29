@@ -10,9 +10,9 @@
 
 **This component will set up the following platforms.**
 
-| Platform           | Description                                    |
-| ------------------ | ---------------------------------------------- |
-| `image_processing` | Create automations using images from cameras   |
+| Platform           | Description                                  |
+| ------------------ | -------------------------------------------- |
+| `image_processing` | Create automations using images from cameras |
 
 {% if not installed %}
 

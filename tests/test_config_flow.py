@@ -1,28 +1,27 @@
 """Test the viam config flow."""
-
 from collections.abc import Generator
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock
+from unittest.mock import MagicMock
+from unittest.mock import patch
 
 import pytest
-from viam.app.viam_client import ViamClient
-
 from custom_components.viam.config_flow import CannotConnect
-from custom_components.viam.const import (
-    CONF_API_ID,
-    CONF_CREDENTIAL_TYPE,
-    CONF_ROBOT,
-    CONF_ROBOT_ID,
-    CONF_SECRET,
-    CRED_TYPE_API_KEY,
-    CRED_TYPE_LOCATION_SECRET,
-    DOMAIN,
-)
+from custom_components.viam.const import CONF_API_ID
+from custom_components.viam.const import CONF_CREDENTIAL_TYPE
+from custom_components.viam.const import CONF_ROBOT
+from custom_components.viam.const import CONF_ROBOT_ID
+from custom_components.viam.const import CONF_SECRET
+from custom_components.viam.const import CRED_TYPE_API_KEY
+from custom_components.viam.const import CRED_TYPE_LOCATION_SECRET
+from custom_components.viam.const import DOMAIN
 from homeassistant.config_entries import SOURCE_USER
-from homeassistant.const import CONF_ADDRESS, CONF_API_KEY
+from homeassistant.const import CONF_ADDRESS
+from homeassistant.const import CONF_API_KEY
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType
 
 from .conftest import MockRobot
+from viam.app.viam_client import ViamClient
 
 pytestmark = pytest.mark.usefixtures("mock_setup_entry")
 

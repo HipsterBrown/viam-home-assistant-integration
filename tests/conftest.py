@@ -1,11 +1,13 @@
 """Common fixtures for the viam tests."""
-
 import asyncio
 from collections.abc import Generator
 from dataclasses import dataclass
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock
+from unittest.mock import MagicMock
+from unittest.mock import patch
 
 import pytest
+
 from viam.app.viam_client import ViamClient
 
 
