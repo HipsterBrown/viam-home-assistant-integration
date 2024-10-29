@@ -1,0 +1,13 @@
+{
+  "_checkout": "2021.1.1",
+  "_output_dir": "/Users/nickhehr/src",
+  "_repo_dir": "/Users/nickhehr/.cookiecutters/cookiecutter-homeassistant-custom-component",
+  "_template": "gh:oncleben31/cookiecutter-homeassistant-custom-component",
+  "class_name_prefix": "Viam",
+  "domain_name": "viam",
+  "friendly_name": "Viam",
+  "github_user": "hipsterbrown",
+  "project_name": "viam",
+  "test_suite": "yes",
+  "version": "0.0.0"
+}
