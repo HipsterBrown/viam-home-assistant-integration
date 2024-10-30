@@ -9,6 +9,7 @@ from custom_components.viam.const import (
     CONF_API_ID,
     CONF_LOCATION_ID,
     CONF_MACHINE_ID,
+    CONF_ORG_ID,
     DOMAIN,
 )
 from homeassistant.config_entries import SOURCE_USER
@@ -37,7 +38,7 @@ async def test_user_form(
     assert result["errors"] == {}
     assert result["step_id"] == "user"
 
-    _client, _mock_org, mock_location, mock_machine = mock_viam_client
+    _client, mock_org, mock_location, mock_machine = mock_viam_client
 
     result = await hass.config_entries.flow.async_configure(
         result["flow_id"],
@@ -48,12 +49,13 @@ async def test_user_form(
     )
 
     assert result["type"] is FlowResultType.CREATE_ENTRY
-    assert result["title"] == "home"
+    assert result["title"] == f"{mock_location.name} - {mock_machine.name}"
     assert result["data"] == {
         CONF_API_ID: "someTestId",
         CONF_API_KEY: "randomSecureAPIKey",
         CONF_MACHINE_ID: mock_machine.id,
         CONF_LOCATION_ID: mock_location.id,
+        CONF_ORG_ID: mock_org.id,
     }
 
     assert len(mock_setup_entry.mock_calls) == 1
