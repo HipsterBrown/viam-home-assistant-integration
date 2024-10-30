@@ -48,10 +48,6 @@ get_classifications:
       required: false
       selector:
         number:
-    machine_address:
-      required: true
-      selector:
-        text:
     filepath:
       required: false
       selector:
@@ -74,10 +70,6 @@ get_detections:
       selector:
         text:
           type: number
-    machine_address:
-      required: true
-      selector:
-        text:
     filepath:
       required: false
       selector:
