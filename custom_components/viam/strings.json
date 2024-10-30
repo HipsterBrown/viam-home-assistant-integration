@@ -3,28 +3,29 @@
     "step": {
       "user": {
         "title": "Authenticate with Viam",
-        "description": "Select which credential type to use.",
-        "data": {
-          "credential_type": "Credential type"
-        }
-      },
-      "auth": {
-        "title": "[%key:component::viam::config::step::user::title%]",
         "description": "Provide the credentials for communicating with the Viam service.",
         "data": {
           "api_id": "API key ID",
-          "api_key": "API key",
-          "address": "Robot address",
-          "secret": "Robot secret"
+          "api_key": "API key"
         },
         "data_description": {
-          "address": "Find this under the Code Sample tab in the app.",
-          "secret": "Find this under the Code Sample tab in the app when 'include secret' is enabled."
+          "api_id": "Find this in Organization settings or under the Connect tab for a specific machine, within the API keys section.",
+          "api_key": "Find this in Organization settings or under the Connect tab for a specific machine, within the API keys section."
         }
       },
-      "robot": {
+      "organizations": {
         "data": {
-          "robot": "Select a robot"
+          "org": "Select an organization"
+        }
+      },
+      "locations": {
+        "data": {
+          "location": "Select a location"
+        }
+      },
+      "machine": {
+        "data": {
+          "machine": "Select a machine"
         }
       }
     },
@@ -32,14 +33,6 @@
       "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
       "invalid_auth": "[%key:common::config_flow::error::invalid_auth%]",
       "unknown": "[%key:common::config_flow::error::unknown%]"
-    }
-  },
-  "selector": {
-    "credential_type": {
-      "options": {
-        "api-key": "Org API key",
-        "robot-location-secret": "Robot location secret"
-      }
     }
   },
   "exceptions": {
@@ -55,11 +48,11 @@
     "unloaded_config_entry": {
       "message": "Invalid config entry provided. {config_entry} is not loaded."
     },
-    "robot_credentials_required": {
-      "message": "The robot address is required for this connection type."
+    "machine_credentials_required": {
+      "message": "The machine address is required for this connection type."
     },
-    "robot_credentials_not_found": {
-      "message": "The necessary credentials for the RobotClient could not be found."
+    "machine_credentials_not_found": {
+      "message": "The necessary credentials for connecting to the machine could not be found."
     }
   },
   "services": {
@@ -73,7 +66,7 @@
         },
         "component_name": {
           "name": "Component name",
-          "description": "The name of the configured robot component to use."
+          "description": "The name of the configured machine component to use."
         },
         "component_type": {
           "name": "Component type",
@@ -99,7 +92,7 @@
         },
         "component_name": {
           "name": "Component name",
-          "description": "The name of the configured robot component to use."
+          "description": "The name of the configured machine component to use."
         }
       }
     },
@@ -119,13 +112,9 @@
           "name": "Classification count",
           "description": "Number of classifications to return from the service"
         },
-        "robot_address": {
-          "name": "Robot address",
-          "description": "If authenticated using an Org API key, provide the robot address associated with the configured vision service."
-        },
-        "robot_secret": {
-          "name": "Robot secret",
-          "description": "If authenticated using an Org API key, provide the robot location secret associated with the configured vision service."
+        "machine_address": {
+          "name": "Machine address",
+          "description": "Provide the machine address associated with the configured vision service."
         },
         "filepath": {
           "name": "Filepath",
@@ -149,13 +138,9 @@
           "name": "Confidence",
           "description": "Threshold for filtering results returned by the service"
         },
-        "robot_address": {
-          "name": "Robot address",
-          "description": "If authenticated using an Org API key, provide the robot address associated with the configured vision service."
-        },
-        "robot_secret": {
-          "name": "Robot secret",
-          "description": "If authenticated using an Org API key, provide the robot location secret associated with the configured vision service."
+        "machine_address": {
+          "name": "Machine address",
+          "description": "Provide the machine address associated with the configured vision service."
         },
         "filepath": {
           "name": "Filepath",

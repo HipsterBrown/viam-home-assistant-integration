@@ -48,12 +48,8 @@ get_classifications:
       required: false
       selector:
         number:
-    robot_address:
-      required: false
-      selector:
-        text:
-    robot_secret:
-      required: false
+    machine_address:
+      required: true
       selector:
         text:
     filepath:
@@ -78,12 +74,8 @@ get_detections:
       selector:
         text:
           type: number
-    robot_address:
-      required: false
-      selector:
-        text:
-    robot_secret:
-      required: false
+    machine_address:
+      required: true
       selector:
         text:
     filepath:

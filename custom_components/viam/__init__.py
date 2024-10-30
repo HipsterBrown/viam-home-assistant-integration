@@ -2,22 +2,19 @@
 
 from __future__ import annotations
 
-from homeassistant.const import CONF_ADDRESS
 from homeassistant.const import CONF_API_KEY
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.typing import ConfigType
 
-from .const import CONF_API_ID
-from .const import CONF_CREDENTIAL_TYPE
-from .const import CONF_SECRET
-from .const import CRED_TYPE_API_KEY
-from .const import DOMAIN
+from .const import (
+    CONF_API_ID,
+    DOMAIN,
+)
 from .manager import ViamConfigEntry
 from .manager import ViamManager
 from .services import async_setup_services
 from viam.app.viam_client import ViamClient
-from viam.rpc.dial import Credentials
 from viam.rpc.dial import DialOptions
 
 CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
@@ -33,15 +30,10 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
 async def async_setup_entry(hass: HomeAssistant, entry: ViamConfigEntry) -> bool:
     """Set up viam from a config entry."""
-    credential_type = entry.data[CONF_CREDENTIAL_TYPE]
-    payload = entry.data[CONF_SECRET]
-    auth_entity = entry.data[CONF_ADDRESS]
-    if credential_type == CRED_TYPE_API_KEY:
-        payload = entry.data[CONF_API_KEY]
-        auth_entity = entry.data[CONF_API_ID]
+    api_key = entry.data[CONF_API_KEY]
+    api_key_id = entry.data[CONF_API_ID]
 
-    credentials = Credentials(type=credential_type, payload=payload)
-    dial_options = DialOptions(auth_entity=auth_entity, credentials=credentials)
+    dial_options = DialOptions.with_api_key(api_key_id, api_key)
     viam_client = await ViamClient.create_from_dial_options(dial_options=dial_options)
     manager = ViamManager(hass, viam_client, entry.entry_id, dict(entry.data))
 

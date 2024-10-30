@@ -3,22 +3,19 @@
 from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_ADDRESS
+from homeassistant.const import CONF_API_KEY
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ServiceValidationError
 
-from .const import CONF_API_ID
-from .const import CONF_CREDENTIAL_TYPE
-from .const import CONF_ROBOT_ID
-from .const import CONF_SECRET
-from .const import CRED_TYPE_API_KEY
-from .const import CRED_TYPE_LOCATION_SECRET
-from .const import DOMAIN
+from .const import (
+    CONF_API_ID,
+    CONF_MACHINE_ID,
+    DOMAIN,
+)
+
 from viam.app.app_client import RobotPart
 from viam.app.viam_client import ViamClient
 from viam.robot.client import RobotClient
-from viam.rpc.dial import Credentials
-from viam.rpc.dial import DialOptions
 
 type ViamConfigEntry = ConfigEntry[ViamManager]
 
@@ -34,54 +31,39 @@ class ViamManager:
         data: dict[str, Any],
     ) -> None:
         """Store initialized client and user input data."""
-        self.address: str = data.get(CONF_ADDRESS, "")
-        self.auth_entity: str = data.get(CONF_API_ID, "")
-        self.cred_type: str = data.get(CONF_CREDENTIAL_TYPE, CRED_TYPE_API_KEY)
+        self.api_key_id: str = data.get(CONF_API_ID, "")
         self.entry_id = entry_id
         self.hass = hass
-        self.robot_id: str = data.get(CONF_ROBOT_ID, "")
-        self.secret: str = data.get(CONF_SECRET, "")
+        self.machine_id: str = data.get(CONF_MACHINE_ID, "")
+        self.api_key: str = data.get(CONF_API_KEY, "")
         self.viam = viam
 
     def unload(self) -> None:
         """Clean up any open clients."""
         self.viam.close()
 
-    async def get_robot_client(
-        self, robot_secret: str | None, robot_address: str | None
-    ) -> RobotClient:
+    async def get_robot_client(self, machine_address: str | None) -> RobotClient:
         """Check initialized data to create robot client."""
-        address = self.address
-        payload = self.secret
-        cred_type = self.cred_type
-        auth_entity: str | None = self.auth_entity
+        payload = self.api_key
+        auth_entity: str | None = self.api_key_id
 
-        if robot_secret is not None:
-            if robot_address is None:
-                raise ServiceValidationError(
-                    "The robot address is required for this connection type.",
-                    translation_domain=DOMAIN,
-                    translation_key="robot_credentials_required",
-                )
-            cred_type = CRED_TYPE_LOCATION_SECRET
-            auth_entity = None
-            address = robot_address
-            payload = robot_secret
-
-        if address is None or payload is None:
+        if machine_address is None:
             raise ServiceValidationError(
-                "The necessary credentials for the RobotClient could not be found.",
+                "The machine address is required for this connection type.",
                 translation_domain=DOMAIN,
-                translation_key="robot_credentials_not_found",
+                translation_key="machine_credentials_required",
             )
 
-        credentials = Credentials(type=cred_type, payload=payload)
-        robot_options = RobotClient.Options(
-            refresh_interval=0,
-            dial_options=DialOptions(auth_entity=auth_entity, credentials=credentials),
-        )
-        return await RobotClient.at_address(address, robot_options)
+        if payload is None:
+            raise ServiceValidationError(
+                "The necessary credentials for connecting to the machine could not be found.",
+                translation_domain=DOMAIN,
+                translation_key="machine_credentials_not_found",
+            )
+
+        robot_options = RobotClient.Options.with_api_key(payload, auth_entity)
+        return await RobotClient.at_address(machine_address, robot_options)
 
     async def get_robot_parts(self) -> list[RobotPart]:
         """Retrieve list of robot parts."""
-        return await self.viam.app_client.get_robot_parts(robot_id=self.robot_id)
+        return await self.viam.app_client.get_robot_parts(robot_id=self.machine_id)

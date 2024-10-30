@@ -11,21 +11,21 @@ from typing import cast
 import voluptuous as vol
 from homeassistant.components import camera
 from homeassistant.config_entries import ConfigEntryState
-from homeassistant.core import callback
-from homeassistant.core import HomeAssistant
-from homeassistant.core import ServiceCall
-from homeassistant.core import ServiceResponse
-from homeassistant.core import SupportsResponse
+from homeassistant.core import (
+    callback,
+    HomeAssistant,
+    ServiceCall,
+    ServiceResponse,
+    SupportsResponse,
+)
 from homeassistant.exceptions import ServiceValidationError
 from homeassistant.helpers import selector
 from PIL import Image
 
 from .const import DOMAIN
-from .manager import ViamConfigEntry
-from .manager import ViamManager
+from .manager import ViamConfigEntry, ViamManager
 from viam.app.app_client import RobotPart
-from viam.media.video import CameraMimeType
-from viam.media.video import ViamImage
+from viam.media.video import CameraMimeType, ViamImage
 from viam.services.vision import VisionClient
 
 ATTR_CONFIG_ENTRY = "config_entry"
@@ -41,8 +41,7 @@ SERVICE_COMPONENT_TYPE = "component_type"
 SERVICE_FILEPATH = "filepath"
 SERVICE_CAMERA = "camera"
 SERVICE_CONFIDENCE = "confidence_threshold"
-SERVICE_ROBOT_ADDRESS = "robot_address"
-SERVICE_ROBOT_SECRET = "robot_secret"
+SERVICE_MACHINE_ADDRESS = "machine_address"
 SERVICE_FILE_NAME = "file_name"
 SERVICE_CLASSIFIER_NAME = "classifier_name"
 SERVICE_COUNT = "count"
@@ -76,8 +75,7 @@ VISION_SERVICE_FIELDS = IMAGE_SERVICE_FIELDS.extend(
         vol.Optional(SERVICE_CONFIDENCE, default="0.6"): vol.All(
             str, vol.Coerce(float), vol.Range(min=0, max=1)
         ),
-        vol.Optional(SERVICE_ROBOT_ADDRESS): vol.All(str),
-        vol.Optional(SERVICE_ROBOT_SECRET): vol.All(str),
+        vol.Required(SERVICE_MACHINE_ADDRESS): vol.All(str),
     }
 )
 
@@ -222,7 +220,7 @@ async def __get_service_values(
     confidence_threshold = float(call.data.get(SERVICE_CONFIDENCE, 0.6))
 
     async with await manager.get_robot_client(
-        call.data.get(SERVICE_ROBOT_SECRET), call.data.get(SERVICE_ROBOT_ADDRESS)
+        call.data.get(SERVICE_MACHINE_ADDRESS)
     ) as robot:
         service: VisionClient = VisionClient.from_robot(robot, service_name)
         image = await __get_image(hass, filepath, camera_entity)
