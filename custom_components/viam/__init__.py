@@ -33,7 +33,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ViamConfigEntry) -> bool
     api_key = entry.data[CONF_API_KEY]
     api_key_id = entry.data[CONF_API_ID]
 
-    dial_options = DialOptions.with_api_key(api_key_id, api_key)
+    dial_options = DialOptions.with_api_key(api_key, api_key_id)
     viam_client = await ViamClient.create_from_dial_options(dial_options=dial_options)
     manager = ViamManager(hass, viam_client, entry.entry_id, dict(entry.data))
 

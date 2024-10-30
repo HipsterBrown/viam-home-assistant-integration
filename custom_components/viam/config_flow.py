@@ -79,7 +79,7 @@ class ViamFlowHandler(ConfigFlow, domain=DOMAIN):
         """Handle the initial step - API Key authentication."""
         errors = await self.__handle_auth_input(user_input)
         if errors is None:
-            return await self.async_step_locations()
+            return await self.async_step_organizations()
 
         return self.async_show_form(
             step_id="user",
@@ -160,6 +160,8 @@ class ViamFlowHandler(ConfigFlow, domain=DOMAIN):
         """Select target machine from location."""
         if user_input is not None:
             self._data.update({CONF_MACHINE_ID: user_input[CONF_MACHINE]})
+            machine = await self._client.app_client.get_robot(user_input[CONF_MACHINE])
+            self._title = f"{self._title} - {machine.name}"
             return self.async_create_entry(title=self._title, data=self._data)
 
         app_client = self._client.app_client
@@ -188,8 +190,11 @@ class ViamFlowHandler(ConfigFlow, domain=DOMAIN):
     @callback
     def async_remove(self) -> None:
         """Notification that the flow has been removed."""
-        if self._client is not None:
-            self._client.close()
+        try:
+            if self._client is not None:
+                self._client.close()
+        except Exception:
+            _LOGGER.exception("Unexpected exception")
 
     async def __handle_auth_input(
         self, user_input: dict[str, Any] | None = None
@@ -221,6 +226,9 @@ class ViamFlowHandler(ConfigFlow, domain=DOMAIN):
 
         if resource_key is CONF_LOCATION_ID:
             self._title = resource.name
+
+        if resource_key is CONF_MACHINE_ID:
+            self._title = f"{self._title} - {resource.name}"
 
         self._data.update({resource_key: resource.id})
 
