@@ -8,5 +8,5 @@
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/HipsterBrown/viam-home-assistant-integration/issues",
   "requirements": ["viam-sdk==0.25.2"],
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
