@@ -49,7 +49,7 @@
       "message": "Invalid config entry provided. {config_entry} is not loaded."
     },
     "machine_credentials_required": {
-      "message": "The machine address is required for this connection type."
+      "message": "The machine address could not be found. It may be offline."
     },
     "machine_credentials_not_found": {
       "message": "The necessary credentials for connecting to the machine could not be found."
@@ -112,10 +112,6 @@
           "name": "Classification count",
           "description": "Number of classifications to return from the service"
         },
-        "machine_address": {
-          "name": "Machine address",
-          "description": "Provide the machine address associated with the configured vision service."
-        },
         "filepath": {
           "name": "Filepath",
           "description": "Local file path to the image you wish to reference."
@@ -137,10 +133,6 @@
         "confidence": {
           "name": "Confidence",
           "description": "Threshold for filtering results returned by the service"
-        },
-        "machine_address": {
-          "name": "Machine address",
-          "description": "Provide the machine address associated with the configured vision service."
         },
         "filepath": {
           "name": "Filepath",

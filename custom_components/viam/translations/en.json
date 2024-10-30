@@ -49,7 +49,7 @@
       "message": "The necessary credentials for connecting to the machine could not be found."
     },
     "machine_credentials_required": {
-      "message": "The machine address is required for this connection type."
+      "message": "The machine address could not be found. It may be offline."
     },
     "unloaded_config_entry": {
       "message": "Invalid config entry provided. {config_entry} is not loaded."
@@ -152,10 +152,6 @@
         "filepath": {
           "description": "Local file path to the image you wish to reference.",
           "name": "Filepath"
-        },
-        "machine_address": {
-          "description": "Provide the machine address associated with the configured vision service.",
-          "name": "Machine Address"
         }
       },
       "name": "Classify Images"
@@ -178,10 +174,6 @@
         "filepath": {
           "description": "Local file path to the image you wish to reference.",
           "name": "Filepath"
-        },
-        "machine_address": {
-          "description": "Provide the machine address associated with the configured vision service.",
-          "name": "Machine Address"
         }
       },
       "name": "Detect Objects in Images"

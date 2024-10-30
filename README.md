@@ -83,26 +83,24 @@ Send images to Viam for [analytics and machine learning model training](https://
 
 Get [a list of classifications](https://docs.viam.com/services/vision/classification/) from an image.
 
-| Parameter         | Description                                                                                                      |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `classifier_name` | Name of classifier vision service configured in Viam.                                                            |
-| `confidence`      | Threshold for filtering results returned by the service.                                                         |
-| `count`           | Number of classifications to return from the service.                                                            |
-| `robot_address`   | If authenticated using the Org API key, provide the robot address associated with the configured vision service. |
-| `filepath`        | Local file path to the image to be analyzed.                                                                     |
-| `camera`          | The camera entity from which an image is captured and analyzed.                                                  |
+| Parameter         | Description                                                     |
+| ----------------- | --------------------------------------------------------------- |
+| `classifier_name` | Name of classifier vision service configured in Viam.           |
+| `confidence`      | Threshold for filtering results returned by the service.        |
+| `count`           | Number of classifications to return from the service.           |
+| `filepath`        | Local file path to the image to be analyzed.                    |
+| `camera`          | The camera entity from which an image is captured and analyzed. |
 
 ### viam.get_detections
 
 Get [a list of detected objects](https://docs.viam.com/services/vision/detection/) from an image.
 
-| Parameter       | Description                                                                                                      |
-| --------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `detector_name` | Name of detection vision service configured in Viam.                                                             |
-| `confidence`    | Threshold for filtering results returned by the service.                                                         |
-| `robot_address` | If authenticated using the Org API key, provide the robot address associated with the configured vision service. |
-| `filepath`      | Local file path to the image to be analyzed.                                                                     |
-| `camera`        | The camera entity from which an image is captured and analyzed.                                                  |
+| Parameter       | Description                                                     |
+| --------------- | --------------------------------------------------------------- |
+| `detector_name` | Name of detection vision service configured in Viam.            |
+| `confidence`    | Threshold for filtering results returned by the service.        |
+| `filepath`      | Local file path to the image to be analyzed.                    |
+| `camera`        | The camera entity from which an image is captured and analyzed. |
 
 <!---->
 

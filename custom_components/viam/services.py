@@ -41,7 +41,6 @@ SERVICE_COMPONENT_TYPE = "component_type"
 SERVICE_FILEPATH = "filepath"
 SERVICE_CAMERA = "camera"
 SERVICE_CONFIDENCE = "confidence_threshold"
-SERVICE_MACHINE_ADDRESS = "machine_address"
 SERVICE_FILE_NAME = "file_name"
 SERVICE_CLASSIFIER_NAME = "classifier_name"
 SERVICE_COUNT = "count"
@@ -75,7 +74,6 @@ VISION_SERVICE_FIELDS = IMAGE_SERVICE_FIELDS.extend(
         vol.Optional(SERVICE_CONFIDENCE, default="0.6"): vol.All(
             str, vol.Coerce(float), vol.Range(min=0, max=1)
         ),
-        vol.Required(SERVICE_MACHINE_ADDRESS): vol.All(str),
     }
 )
 
@@ -165,7 +163,7 @@ def __get_manager(hass: HomeAssistant, call: ServiceCall) -> ViamManager:
 async def __capture_data(hass: HomeAssistant, call: ServiceCall) -> None:
     """Accept input from service call to send to Viam."""
     manager = __get_manager(hass, call)
-    parts: list[RobotPart] = await manager.get_robot_parts()
+    parts: list[RobotPart] = await manager.get_machine_parts()
     values = [call.data.get(SERVICE_VALUES, {})]
     component_type = call.data.get(SERVICE_COMPONENT_TYPE, "sensor")
     component_name = call.data.get(SERVICE_COMPONENT_NAME, "")
@@ -183,7 +181,7 @@ async def __capture_data(hass: HomeAssistant, call: ServiceCall) -> None:
 async def __capture_image(hass: HomeAssistant, call: ServiceCall) -> None:
     """Accept input from service call to send to Viam."""
     manager = __get_manager(hass, call)
-    parts: list[RobotPart] = await manager.get_robot_parts()
+    parts: list[RobotPart] = await manager.get_machine_parts()
     filepath = call.data.get(SERVICE_FILEPATH)
     camera_entity = call.data.get(SERVICE_CAMERA)
     component_name = call.data.get(SERVICE_COMPONENT_NAME)
@@ -219,9 +217,7 @@ async def __get_service_values(
     count = int(call.data.get(SERVICE_COUNT, 2))
     confidence_threshold = float(call.data.get(SERVICE_CONFIDENCE, 0.6))
 
-    async with await manager.get_robot_client(
-        call.data.get(SERVICE_MACHINE_ADDRESS)
-    ) as robot:
+    async with await manager.get_robot_client() as robot:
         service: VisionClient = VisionClient.from_robot(robot, service_name)
         image = await __get_image(hass, filepath, camera_entity)
 
