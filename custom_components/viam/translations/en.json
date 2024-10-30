@@ -6,30 +6,31 @@
       "unknown": "Unexpected error"
     },
     "step": {
-      "auth": {
+      "locations": {
         "data": {
-          "address": "Robot Address",
-          "api_id": "API Key ID",
-          "api_key": "API Key Value",
-          "secret": "Robot Secret"
-        },
-        "data_description": {
-          "address": "Find this under the Code Sample tab in the app.",
-          "secret": "Find this under the Code Sample tab in the app when 'include secret' is enabled."
-        },
-        "description": "Provide the credentials for communicating with the Viam service.",
-        "title": "Authenticate with Viam"
+          "location": "Select a location"
+        }
       },
-      "robot": {
+      "machine": {
         "data": {
-          "robot": "Select a robot"
+          "machine": "Select a machine"
+        }
+      },
+      "organizations": {
+        "data": {
+          "org": "Select an organization"
         }
       },
       "user": {
         "data": {
-          "credential_type": "Credential Type"
+          "api_id": "API key ID",
+          "api_key": "API key"
         },
-        "description": "Select which credential type to use.",
+        "data_description": {
+          "api_id": "Find this in Organization settings or under the Connect tab for a specific machine, within the API keys section.",
+          "api_key": "Find this in Organization settings or under the Connect tab for a specific machine, within the API keys section."
+        },
+        "description": "Provide the credentials for communicating with the Viam service.",
         "title": "Authenticate with Viam"
       }
     }
@@ -44,22 +45,14 @@
     "invalid_config_entry": {
       "message": "Invalid config entry provided. Got {config_entry}"
     },
-    "robot_credentials_not_found": {
-      "message": "The necessary credentials for the RobotClient could not be found."
+    "machine_credentials_not_found": {
+      "message": "The necessary credentials for connecting to the machine could not be found."
     },
-    "robot_credentials_required": {
-      "message": "The robot location and secret are required for this connection type."
+    "machine_credentials_required": {
+      "message": "The machine address is required for this connection type."
     },
     "unloaded_config_entry": {
       "message": "Invalid config entry provided. {config_entry} is not loaded."
-    }
-  },
-  "selector": {
-    "credential_type": {
-      "options": {
-        "api-key": "Org API Key",
-        "robot-location-secret": "Robot Location Secret"
-      }
     }
   },
   "services": {
@@ -67,7 +60,7 @@
       "description": "Send arbitrary tabular data to Viam for analytics and model training.",
       "fields": {
         "component_name": {
-          "description": "The name of the configured robot component to use.",
+          "description": "The name of the configured machine component to use.",
           "name": "Component Name"
         },
         "component_type": {
@@ -89,7 +82,7 @@
           "name": "Camera Entity"
         },
         "component_name": {
-          "description": "The name of the configured robot component to use.",
+          "description": "The name of the configured machine component to use.",
           "name": "Component Name"
         },
         "file_name": {
@@ -111,7 +104,7 @@
           "name": "Camera Entity"
         },
         "component_name": {
-          "description": "The name of the configured robot component to use.",
+          "description": "The name of the configured machine component to use.",
           "name": "Component Name"
         },
         "component_type": {
@@ -130,13 +123,9 @@
           "description": "Local file path to the image you wish to reference.",
           "name": "Filepath"
         },
-        "robot_address": {
-          "description": "If authenticated using an Org API key, provide the robot address associated with the configured vision service.",
-          "name": "Robot Address"
-        },
-        "robot_secret": {
-          "description": "If authenticated using an Org API key, provide the robot location secret associated with the configured vision service.",
-          "name": "Robot Secret"
+        "machine_address": {
+          "description": "Provide the machine address associated with the configured vision service.",
+          "name": "Machine Address"
         }
       },
       "name": "Common fields for Viam integration services"
@@ -164,13 +153,9 @@
           "description": "Local file path to the image you wish to reference.",
           "name": "Filepath"
         },
-        "robot_address": {
-          "description": "If authenticated using an Org API key, provide the robot address associated with the configured vision service.",
-          "name": "Robot Address"
-        },
-        "robot_secret": {
-          "description": "If authenticated using an Org API key, provide the robot location secret associated with the configured vision service.",
-          "name": "Robot Secret"
+        "machine_address": {
+          "description": "Provide the machine address associated with the configured vision service.",
+          "name": "Machine Address"
         }
       },
       "name": "Classify Images"
@@ -194,13 +179,9 @@
           "description": "Local file path to the image you wish to reference.",
           "name": "Filepath"
         },
-        "robot_address": {
-          "description": "If authenticated using an Org API key, provide the robot address associated with the configured vision service.",
-          "name": "Robot Address"
-        },
-        "robot_secret": {
-          "description": "If authenticated using an Org API key, provide the robot location secret associated with the configured vision service.",
-          "name": "Robot Secret"
+        "machine_address": {
+          "description": "Provide the machine address associated with the configured vision service.",
+          "name": "Machine Address"
         }
       },
       "name": "Detect Objects in Images"
