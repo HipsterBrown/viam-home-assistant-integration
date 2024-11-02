@@ -60,6 +60,10 @@
       "name": "Capture data",
       "description": "Send arbitrary tabular data to Viam for analytics and model training.",
       "fields": {
+        "config_entry": {
+          "name": "Viam machine",
+          "description": "The Viam machine to associate with this service."
+        },
         "values": {
           "name": "Values",
           "description": "List of tabular data to send to Viam."
@@ -78,6 +82,10 @@
       "name": "Capture image",
       "description": "Send images to Viam for analytics and model training.",
       "fields": {
+        "config_entry": {
+          "name": "Viam machine",
+          "description": "The Viam machine to associate with this service."
+        },
         "filepath": {
           "name": "Filepath",
           "description": "Local file path to the image you wish to reference."
@@ -100,6 +108,10 @@
       "name": "Classify images",
       "description": "Get a list of classifications from an image.",
       "fields": {
+        "config_entry": {
+          "name": "Viam machine",
+          "description": "The Viam machine to associate with this service."
+        },
         "classifier_name": {
           "name": "Classifier name",
           "description": "Name of classifier vision service configured in Viam"
@@ -126,6 +138,10 @@
       "name": "Detect objects in images",
       "description": "Get a list of detected objects from an image.",
       "fields": {
+        "config_entry": {
+          "name": "Viam machine",
+          "description": "The Viam machine to associate with this service."
+        },
         "detector_name": {
           "name": "Detector name",
           "description": "Name of detector vision service configured in Viam"
