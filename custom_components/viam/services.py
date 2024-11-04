@@ -26,6 +26,7 @@ from .const import DOMAIN
 from .manager import ViamConfigEntry, ViamManager
 from viam.app.app_client import RobotPart
 from viam.media.video import CameraMimeType, ViamImage
+from viam.robot.client import RobotClient
 from viam.services.vision import VisionClient
 
 ATTR_CONFIG_ENTRY = "config_entry"
@@ -71,8 +72,8 @@ IMAGE_SERVICE_FIELDS = ENTRY_SERVICE_SCHEMA.extend(
 )
 VISION_SERVICE_FIELDS = IMAGE_SERVICE_FIELDS.extend(
     {
-        vol.Optional(SERVICE_CONFIDENCE, default="0.6"): vol.All(
-            str, vol.Coerce(float), vol.Range(min=0, max=1)
+        vol.Optional(SERVICE_CONFIDENCE, default=0.6): vol.All(
+            float, vol.Range(min=0, max=1)
         ),
     }
 )
@@ -208,7 +209,7 @@ async def __get_service_values(
     hass: HomeAssistant,
     call: ServiceCall,
     service_config_name: str,
-) -> tuple[VisionClient, ViamImage | None, Any | None, float, int]:
+) -> tuple[VisionClient, ViamImage | None, Any | None, float, int, RobotClient]:
     """Create common values for vision services."""
     manager = __get_manager(hass, call)
     filepath = call.data.get(SERVICE_FILEPATH)
@@ -217,11 +218,11 @@ async def __get_service_values(
     count = int(call.data.get(SERVICE_COUNT, 2))
     confidence_threshold = float(call.data.get(SERVICE_CONFIDENCE, 0.6))
 
-    async with await manager.get_robot_client() as robot:
-        service: VisionClient = VisionClient.from_robot(robot, service_name)
-        image = await __get_image(hass, filepath, camera_entity)
+    robot = await manager.get_robot_client()
+    service: VisionClient = VisionClient.from_robot(robot, service_name)
+    image = await __get_image(hass, filepath, camera_entity)
 
-    return service, image, filepath, confidence_threshold, count
+    return service, image, filepath, confidence_threshold, count, robot
 
 
 async def __get_classifications(
@@ -234,9 +235,11 @@ async def __get_classifications(
         filepath,
         confidence_threshold,
         count,
+        robot,
     ) = await __get_service_values(hass, call, SERVICE_CLASSIFIER_NAME)
 
     if image is None:
+        await robot.close()
         return {
             "classifications": [],
             "img_src": filepath or None,
@@ -244,6 +247,8 @@ async def __get_classifications(
 
     img_src = filepath or __encode_image(image)
     classifications = await classifier.get_classifications(image, count)
+
+    await robot.close()
 
     return {
         "classifications": [
@@ -263,9 +268,11 @@ async def __get_detections(hass: HomeAssistant, call: ServiceCall) -> ServiceRes
         filepath,
         confidence_threshold,
         _count,
+        robot,
     ) = await __get_service_values(hass, call, SERVICE_DETECTOR_NAME)
 
     if image is None:
+        await robot.close()
         return {
             "detections": [],
             "img_src": filepath or None,
@@ -273,6 +280,8 @@ async def __get_detections(hass: HomeAssistant, call: ServiceCall) -> ServiceRes
 
     img_src = filepath or __encode_image(image)
     detections = await detector.get_detections(image)
+
+    await robot.close()
 
     return {
         "detections": [
