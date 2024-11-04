@@ -64,6 +64,7 @@ Send arbitrary tabular data to Viam to [view and analyze](https://docs.viam.com/
 
 | Parameter        | Description                                                            |
 | ---------------- | ---------------------------------------------------------------------- |
+| `config_entry`   | Viam machine to associate with the service.                            |
 | `values`         | List of data objects to send to Viam.                                  |
 | `component_name` | Name of the sensor or other component to which the data is associated. |
 | `component_type` | Type of the sensor or other component to which the data is associated. |
@@ -74,6 +75,7 @@ Send images to Viam for [analytics and machine learning model training](https://
 
 | Parameter        | Description                                                              |
 | ---------------- | ------------------------------------------------------------------------ |
+| `config_entry`   | Viam machine to associate with the service.                              |
 | `filepath`       | Local file path to the image to be uploaded.                             |
 | `camera`         | The camera entity from which an image is captured.                       |
 | `file_name`      | The name of the file that will be displayed in the metadata within Viam. |
@@ -85,6 +87,7 @@ Get [a list of classifications](https://docs.viam.com/services/vision/classifica
 
 | Parameter         | Description                                                     |
 | ----------------- | --------------------------------------------------------------- |
+| `config_entry`    | Viam machine to associate with the service.                     |
 | `classifier_name` | Name of classifier vision service configured in Viam.           |
 | `confidence`      | Threshold for filtering results returned by the service.        |
 | `count`           | Number of classifications to return from the service.           |
@@ -97,6 +100,7 @@ Get [a list of detected objects](https://docs.viam.com/services/vision/detection
 
 | Parameter       | Description                                                     |
 | --------------- | --------------------------------------------------------------- |
+| `config_entry`  | Viam machine to associate with the service.                     |
 | `detector_name` | Name of detection vision service configured in Viam.            |
 | `confidence`    | Threshold for filtering results returned by the service.        |
 | `filepath`      | Local file path to the image to be analyzed.                    |

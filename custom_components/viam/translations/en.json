@@ -67,6 +67,10 @@
           "description": "The type of the associated component.",
           "name": "Component Type"
         },
+        "config_entry": {
+          "name": "Viam machine",
+          "description": "The Viam machine to associate with this service."
+        },
         "values": {
           "description": "List of tabular data to send to Viam.",
           "name": "Values"
@@ -84,6 +88,10 @@
         "component_name": {
           "description": "The name of the configured machine component to use.",
           "name": "Component Name"
+        },
+        "config_entry": {
+          "name": "Viam machine",
+          "description": "The Viam machine to associate with this service."
         },
         "file_name": {
           "description": "The name of the file that will be displayed in the metadata within Viam.",
@@ -110,6 +118,10 @@
         "component_type": {
           "description": "The type of the associated component.",
           "name": "Component Type"
+        },
+        "config_entry": {
+          "name": "Viam machine",
+          "description": "The Viam machine to associate with this service."
         },
         "confidence": {
           "description": "Threshold for filtering results returned by the service",
@@ -145,6 +157,10 @@
           "description": "Threshold for filtering results returned by the service",
           "name": "Confidence"
         },
+        "config_entry": {
+          "name": "Viam machine",
+          "description": "The Viam machine to associate with this service."
+        },
         "count": {
           "description": "Number of classifications to return from the service",
           "name": "Classification count"
@@ -166,6 +182,10 @@
         "confidence": {
           "description": "Threshold for filtering results returned by the service",
           "name": "Confidence"
+        },
+        "config_entry": {
+          "name": "Viam machine",
+          "description": "The Viam machine to associate with this service."
         },
         "detector_name": {
           "description": "Name of detector vision service configured in Viam",
