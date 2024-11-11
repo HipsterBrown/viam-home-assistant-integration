@@ -1,5 +1,5 @@
 -r requirements_dev.txt
-pytest-homeassistant-custom-component==0.13.181
+pytest-homeassistant-custom-component==0.13.182
 black
 flake8
 reorder-python-imports
