@@ -1,2 +1,2 @@
 homeassistant
-viam-sdk==0.35.0
+viam-sdk==0.36.0
